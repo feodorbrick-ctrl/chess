@@ -4,6 +4,7 @@ export class Figure {
         this.x = x;
         this.y = y;
         this.possibleMoves = [];
+        this.possibleAttacks = []
     }
 
     getName() {
@@ -14,8 +15,8 @@ export class Figure {
         return [this.x, this.y];
     }
 
-    getMoves() {
-        return this.possibleMoves;
+    getMovesInfo() {
+        return {moves: this.possibleMoves, attacks: this.possibleAttacks};
     }
 
     moveFigure(moveX, moveY) {

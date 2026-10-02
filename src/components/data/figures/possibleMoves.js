@@ -1,26 +1,45 @@
 export const possibleMoves = (x, y) => ({
     King: {
-        Moves: [],
-        Attacks: []
+        Moves: [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [-1, 1], [1, -1]],
+        Attacks: this.Moves
     },
     Queen: {
-        Moves: [],
-        Attacks: []
+        Moves: Array.from({ length: 8 }, (_, index) => [
+            [index, index],
+            [-index, index],
+            [index, -index],
+            [-index, -index],
+            [index, 0],
+            [-index, 0],
+            [0, -index],
+            [0, index]
+        ]).flat(),
+        Attacks: this.Moves
     },
     Rook: {
-        Moves: [],
-        Attacks: []
+        Moves: Array.from({ length: 8 }, (_, index) => [
+            [index, 0],
+            [-index, 0],
+            [0, -index],
+            [0, index]
+        ]).flat(),
+        Attacks: this.Moves
     },
     Bishop: {
-        Moves: [],
-        Attacks: []
+        Moves: Array.from({ length: 8 }, (_, index) => [
+            [index, index],
+            [-index, index],
+            [index, -index],
+            [-index, -index]
+        ]).flat(),
+        Attacks: this.Moves
     },
     Knight: {
-        Moves: [],
-        Attacks: []
+        Moves: [[-1, 2], [-1, -2], [1, -2], [1, 2], [2, -1], [2, 1], [-2, -1], [-2, 1]],
+        Attacks: this.Moves
     },
     Pawn: {
-        Moves: [],
-        Attacks: []
+        Moves: [[0, 1]],
+        Attacks: [[-1, 1], [1, 1]],
     }
 })
