@@ -1,4 +1,4 @@
-export const possibleMoves = (x, y) => ({
+export const possibleMoves = {
     King: {
         Moves: [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [-1, 1], [1, -1]],
         Attacks: this.Moves
@@ -42,4 +42,4 @@ export const possibleMoves = (x, y) => ({
         Moves: [[0, 1]],
         Attacks: [[-1, 1], [1, 1]],
     }
-})
+}

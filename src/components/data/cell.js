@@ -1,3 +1,5 @@
+import {Figure} from "./figures/figure";
+
 export class Cell {
     #color = 'white'
     constructor(coordinateX, coordinateY) {
@@ -5,6 +7,7 @@ export class Cell {
         this.y = coordinateY;
         this.#color = coordinateX * coordinateY % 2 ? 'white' : 'green';
         this.canFigureStay = false;
+        this.figure = new Figure(this.x, this.y);
     }
 
     getCoordinates() {
