@@ -5,7 +5,7 @@ export class Cell {
     constructor(coordinateX, coordinateY) {
         this.x = coordinateX;
         this.y = coordinateY;
-        this.#color = coordinateX * coordinateY % 2 ? 'white' : 'green';
+        this.#color = ((coordinateY % 2) + coordinateX) % 2 ? '#ffffff' : '#76C457';
         this.canFigureStay = false;
         this.figure = new Figure(this.x, this.y);
     }

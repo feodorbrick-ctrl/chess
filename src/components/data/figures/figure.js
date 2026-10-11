@@ -5,6 +5,12 @@ export class Figure {
         this.y = y;
         this.possibleMoves = [];
         this.possibleAttacks = []
+        this._img = ''
+        this.color = ''
+    }
+
+    setColor(color) {
+        this.color = color;
     }
 
     getName() {
