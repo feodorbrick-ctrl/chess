@@ -1,10 +1,9 @@
 import React from 'react';
-import { Cell } from '../../data/cell';
 import CellComponent from "./cell/cellComponent";
+import {startFigures} from "../../data/startFigures";
 
 const GameField = () => {
-    const [cells, setCells] = React.useState(Array.from({length: 64}, (_, index) =>
-        new Cell(index % 8, Math.floor(index / 8))));
+    const [cells, setCells] = React.useState(startFigures);
     return (
         <div style={{
             width: 'fit-content',

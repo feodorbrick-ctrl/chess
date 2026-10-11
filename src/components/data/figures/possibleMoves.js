@@ -1,45 +1,98 @@
+
+const kingMoves = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+    [1, 1],
+    [-1, -1],
+    [-1, 1],
+    [1, -1]
+];
+
+const queenMoves = Array.from({ length: 7 }, (_, index) => {
+    const i = index + 1;
+
+    return [
+        [i, i],
+        [-i, i],
+        [i, -i],
+        [-i, -i],
+        [i, 0],
+        [-i, 0],
+        [0, -i],
+        [0, i]
+    ];
+}).flat();
+
+const rookMoves = Array.from({ length: 7 }, (_, index) => {
+    const i = index + 1;
+
+    return [
+        [i, 0],
+        [-i, 0],
+        [0, -i],
+        [0, i]
+    ];
+}).flat();
+
+const bishopMoves = Array.from({ length: 7 }, (_, index) => {
+    const i = index + 1;
+
+    return [
+        [i, i],
+        [-i, i],
+        [i, -i],
+        [-i, -i]
+    ];
+}).flat();
+
+const knightMoves = [
+    [-1, 2],
+    [-1, -2],
+    [1, -2],
+    [1, 2],
+    [2, -1],
+    [2, 1],
+    [-2, -1],
+    [-2, 1]
+];
+
+const pawnMoves = [[0, 1]];
+
+const pawnAttacks = [
+    [-1, 1],
+    [1, 1]
+];
+
 export const possibleMoves = {
     King: {
-        Moves: [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [-1, 1], [1, -1]],
-        Attacks: this.Moves
+        Moves: kingMoves,
+        Attacks: kingMoves
     },
+
     Queen: {
-        Moves: Array.from({ length: 8 }, (_, index) => [
-            [index, index],
-            [-index, index],
-            [index, -index],
-            [-index, -index],
-            [index, 0],
-            [-index, 0],
-            [0, -index],
-            [0, index]
-        ]).flat(),
-        Attacks: this.Moves
+        Moves: queenMoves,
+        Attacks: queenMoves
     },
+
     Rook: {
-        Moves: Array.from({ length: 8 }, (_, index) => [
-            [index, 0],
-            [-index, 0],
-            [0, -index],
-            [0, index]
-        ]).flat(),
-        Attacks: this.Moves
+        Moves: rookMoves,
+        Attacks: rookMoves
     },
+
     Bishop: {
-        Moves: Array.from({ length: 8 }, (_, index) => [
-            [index, index],
-            [-index, index],
-            [index, -index],
-            [-index, -index]
-        ]).flat(),
-        Attacks: this.Moves
+        Moves: bishopMoves,
+        Attacks: bishopMoves
     },
+
     Knight: {
-        Moves: [[-1, 2], [-1, -2], [1, -2], [1, 2], [2, -1], [2, 1], [-2, -1], [-2, 1]],
-        Attacks: this.Moves
+        Moves: knightMoves,
+        Attacks: knightMoves
     },
+
     Pawn: {
-        Moves: [[0, 1]],
-        Attacks: [[-1, 1], [1, 1]],
+        Moves: pawnMoves,
+        Attacks: pawnAttacks
     }
-}
+};
