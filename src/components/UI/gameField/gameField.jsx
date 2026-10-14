@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import CellComponent from "./cell/cellComponent";
-import {startFigures} from "../../data/startFigures";
+import Context from "../../../index";
 
 const GameField = () => {
-    const [cells, setCells] = React.useState(startFigures);
+    const {cells} = useContext(Context)
+
     return (
         <div style={{
             width: 'fit-content',
