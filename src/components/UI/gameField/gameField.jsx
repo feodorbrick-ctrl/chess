@@ -16,7 +16,7 @@ const GameField = () => {
             padding: '2px',
         }}>
             {cells.map((value, index) =>
-                <CellComponent key={index.toString()} color={cells[index].getColor()} figure={cells[index].figure}/>
+                <CellComponent key={index.toString()} whichFigureCanStay={cells[index].whichFigureCanStay} i={index} color={cells[index].getColor()} figure={cells[index].figure}/>
             )}
         </div>
     );

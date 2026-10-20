@@ -9,7 +9,7 @@ import { Knight } from './figures/Knight';
 
 export const startFigures = Array.from(
     { length: 64 },
-    (_, index) => new Cell(index % 8, Math.floor(index / 8))
+    (_, index) => new Cell(1 + index % 8, 1 + Math.floor(index / 8))
 );
 
 // Белые пешки
