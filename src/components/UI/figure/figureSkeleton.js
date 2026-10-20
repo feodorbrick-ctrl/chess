@@ -16,6 +16,7 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
                 if (figure.name === 'Figure') {
                     if (whichFigureCanStay !== null) {
                         setFigureCoordinates(figure, whichFigureCanStay, cells, setCells)
+                        return;
                     }
 
                 }

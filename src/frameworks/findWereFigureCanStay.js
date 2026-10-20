@@ -2,10 +2,10 @@
 import { possibleMoves } from "../components/data/figures/possibleMoves";
 
 const switchedCells = []
-let isSwitchedCellsvisible = false;
+let isSwitchedCellsVisible = false;
 
 export function findWereFigureCanStay(figuresStays, figure) {
-    if (!isSwitchedCellsvisible) {
+    if (!isSwitchedCellsVisible) {
         if (figure.name !== 'Figure') {
             const moves = possibleMoves[figure.name].Moves;
             const [y, x] = figure.getCoordinates();
@@ -30,12 +30,13 @@ export function findWereFigureCanStay(figuresStays, figure) {
                     cell.whichFigureCanStay = figure;
                     cell.color = 'red';
                 }
-                isSwitchedCellsvisible = true;
+                isSwitchedCellsVisible = true;
             }
         }
     } else {
         switchedCells.map(cell => cell.whichFigureCanStay = null);
-        isSwitchedCellsvisible = false;
+        switchedCells.length = 0;
+        isSwitchedCellsVisible = false;
     }
 
     return figuresStays;

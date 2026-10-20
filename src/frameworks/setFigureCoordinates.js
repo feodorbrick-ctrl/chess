@@ -1,6 +1,6 @@
 import {Cell} from "../components/data/cell";
 
-export async function setFigureCoordinates(figure, whichFigureCanStay, cells, setCells) {
+export function setFigureCoordinates(figure, whichFigureCanStay, cells, setCells) {
     const index = 8 * (figure.y - 1) + (figure.x - 1);
 
     if (index < 0 || index >= cells.length) {
@@ -8,18 +8,13 @@ export async function setFigureCoordinates(figure, whichFigureCanStay, cells, se
         return;
     }
 
-    const updatedCells = cells.map((cell, i) => {
+    setCells(currentCells => currentCells.map((cell, i) => {
         if (i === index) {
-            const newCell = new Cell(cell.x, cell.y);
-            newCell.setFigure(figure);
+            const newCell = new Cell(cell.y, cell.x);
+            newCell.setFigure(whichFigureCanStay);
             return newCell;
         }
 
         return cell;
-    });
-
-    setCells(updatedCells);
-
-    console.log(updatedCells[index])
-    console.log(cells[index])
+    }));
 }
