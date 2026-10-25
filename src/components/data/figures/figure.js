@@ -7,10 +7,6 @@ export class Figure {
         this.color = ''
     }
 
-    setColor(color) {
-        this.color = color;
-    }
-
     getCoordinates() {
         return [this.x, this.y];
     }

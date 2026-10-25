@@ -58,7 +58,7 @@ const knightMoves = [
     [-2, 1]
 ];
 
-const pawnMoves = [[0, 1]];
+const pawnMoves = [[1, 0]];
 
 const pawnAttacks = [
     [-1, 1],
