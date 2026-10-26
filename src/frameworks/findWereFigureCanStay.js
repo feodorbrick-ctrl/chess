@@ -1,43 +1,75 @@
-
 import { possibleMoves } from "../components/data/figures/possibleMoves";
 
-const switchedCells = []
+const switchedCells = [];
 let isSwitchedCellsVisible = false;
 
 export function findWereFigureCanStay(figuresStays, figure) {
-    if (!isSwitchedCellsVisible) {
-        if (figure.name !== 'Figure') {
-            const moves = possibleMoves[figure.name].Moves;
-            const [y, x] = figure.getCoordinates();
+    if (isSwitchedCellsVisible) {
+        switchedCells.forEach(cell => {
+            cell.whichFigureCanStay = null;
+        });
 
-            for (let i = 0; i < moves.length; i++) {
-                const targetX = x - moves[i][0];
-                const targetY = y - moves[i][1];
-
-                if (
-                    targetX < 1 || targetX > 8 ||
-                    targetY < 1 || targetY > 8
-                ) {
-                    continue;
-                }
-
-                const index = 8 * (targetY - 1) + (targetX - 1);
-                const cell = figuresStays[index];
-
-                switchedCells.push(cell)
-
-                if (cell) {
-                    cell.whichFigureCanStay = figure;
-                    cell.color = 'red';
-                }
-                isSwitchedCellsVisible = true;
-            }
-        }
-    } else {
-        switchedCells.map(cell => cell.whichFigureCanStay = null);
         switchedCells.length = 0;
         isSwitchedCellsVisible = false;
+
+        return figuresStays;
     }
+
+    if (figure.name === "Figure") {
+        return figuresStays;
+    }
+
+    const moves = possibleMoves[figure.name]?.Moves;
+
+    if (!moves) {
+        return figuresStays;
+    }
+
+    const [x, y] = figure.getCoordinates();
+
+    const directions = new Map();
+
+    for (const move of moves) {
+        const targetX = x - move[1];
+        const targetY = y - move[0];
+
+        if (
+            targetX < 1 || targetX > 8 ||
+            targetY < 1 || targetY > 8
+        ) {
+            continue;
+        }
+
+        const index = 8 * (targetY - 1) + (targetX - 1);
+        const cell = figuresStays[index];
+
+        if (!cell) {
+            continue;
+        }
+
+        if (figure.name !== "Knight") {
+            const directionX = Math.sign(move[0]);
+            const directionY = Math.sign(move[1]);
+            const direction = `${directionX},${directionY}`;
+
+            if (directions.has(direction) && directions.get(direction)) {
+                continue;
+            }
+
+            if (cell.figure.name !== "Figure") {
+                directions.set(direction, true);
+                continue;
+            }
+        } else if (cell.figure.name !== "Figure") {
+            continue;
+        }
+
+        cell.whichFigureCanStay = figure;
+
+        switchedCells.push(cell);
+    }
+
+    isSwitchedCellsVisible = switchedCells.length > 0;
 
     return figuresStays;
 }

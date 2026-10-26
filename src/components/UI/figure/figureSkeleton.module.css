@@ -20,4 +20,14 @@
     height: min(100vw / 8 - 10px, 100vh / 8 - 10px);
     cursor: pointer;
     opacity: 0;
+    z-index: 10;
+}
+
+.canFigureStayFlag {
+    width: calc(100% / 3 * 2);
+    height: calc(100% / 3 * 2);
+    border-radius: 50%;
+    background: #BBDC12;
+    position: absolute;
+    z-index: 1;
 }

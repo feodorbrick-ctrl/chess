@@ -31,9 +31,6 @@ export class Cell {
     }
 
     getColor () {
-        if (this.whichFigureCanStay != null) {
-            return 'red'
-        }
         return this.#color
     }
 
