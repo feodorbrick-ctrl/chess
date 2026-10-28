@@ -1,5 +1,6 @@
 import {Figure} from "./figure";
-import BishopImg from '../../../images/black/bishop-black.png'
+import WhiteBishopImg from '../../../images/white/bishop-white.webp'
+import BlackBishopImg from '../../../images/black/bishop-black.png'
 import {possibleMoves} from "./possibleMoves";
 
 export class Bishop extends Figure{
@@ -9,7 +10,7 @@ export class Bishop extends Figure{
         this.possibleMoves = possibleMoves.Knight.Moves;
         this.possibleAttacks = possibleMoves.Knight.Attacks;
         this.color = 'black'
-        this._img = BishopImg;
+        this._img = this.color === 'black' ? BlackBishopImg : WhiteBishopImg
         this.x = x
         this.y = y
     }

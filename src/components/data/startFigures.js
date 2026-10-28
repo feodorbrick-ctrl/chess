@@ -12,12 +12,14 @@ export const startFigures = Array.from(
     (_, index) => new Cell(1 + index % 8, 1 + Math.floor(index / 8))
 );
 
-// Белые пешки
+for (let x = 0; x < 8; x++) {
+    startFigures[8 + x].figure = new Pawn(x + 1,2, 'white');
+}
+
 for (let x = 0; x < 8; x++) {
     startFigures[8 * 8 - 16 + x].figure = new Pawn(x + 1, 7);
 }
 
-// Белые фигуры
 startFigures[56].figure = new Rook(1, 8);
 startFigures[57].figure = new Knight(2, 8);
 startFigures[58].figure = new Bishop(3, 8);

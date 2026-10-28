@@ -4,7 +4,6 @@ export class Figure {
         this.x = x;
         this.y = y;
         this._img = ''
-        this.color = ''
     }
 
     getCoordinates() {

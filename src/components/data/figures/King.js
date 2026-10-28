@@ -1,15 +1,15 @@
 import {Figure} from "./figure";
-import KingImg from '../../../images/black/king-black.png'
+import BlackKingImg from '../../../images/black/king-black.png'
+import WhiteKingImg from '../../../images/white/king-white.webp'
 import {possibleMoves} from "./possibleMoves";
 
 export class King extends Figure{
-    constructor(x, y) {
+    constructor(x, y, color = 'black') {
         super();
         this.name = 'King';
         this.possibleMoves = possibleMoves.King.Moves;
         this.possibleAttacks = possibleMoves.King.Attacks;
-        this.color = 'black'
-        this._img = KingImg;
+        this._img = color === 'black' ? BlackKingImg : WhiteKingImg;
         this.x = x
         this.y = y
     }

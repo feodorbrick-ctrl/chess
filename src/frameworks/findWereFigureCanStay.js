@@ -1,5 +1,3 @@
-import { possibleMoves } from "../components/data/figures/possibleMoves";
-
 const switchedCells = [];
 let isSwitchedCellsVisible = false;
 
@@ -19,7 +17,7 @@ export function findWereFigureCanStay(figuresStays, figure) {
         return figuresStays;
     }
 
-    const moves = possibleMoves[figure.name]?.Moves;
+    const moves = figure.possibleMoves;
 
     if (!moves) {
         return figuresStays;

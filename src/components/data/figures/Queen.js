@@ -1,15 +1,15 @@
 import {Figure} from "./figure";
-import QueenImg from '../../../images/black/queen-black.png'
+import WhiteQueenImg from '../../../images/white/queen-white.png'
+import BlackQueenImg from '../../../images/black/queen-black.png'
 import {possibleMoves} from "./possibleMoves";
 
 export class Queen extends Figure{
-    constructor(x, y) {
+    constructor(x, y, color = 'black') {
         super();
         this.name = 'Queen';
         this.possibleMoves = possibleMoves.Queen.Moves;
         this.possibleAttacks = possibleMoves.Queen.Attacks;
-        this.color = 'black'
-        this._img = QueenImg;
+        this._img = color === 'black' ? BlackQueenImg : WhiteQueenImg;
         this.x = x
         this.y = y
     }
