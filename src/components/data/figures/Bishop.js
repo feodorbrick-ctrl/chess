@@ -4,13 +4,12 @@ import BlackBishopImg from '../../../images/black/bishop-black.png'
 import {possibleMoves} from "./possibleMoves";
 
 export class Bishop extends Figure{
-    constructor(x, y) {
+    constructor(x, y, color = 'black') {
         super();
         this.name = 'Bishop';
-        this.possibleMoves = possibleMoves.Knight.Moves;
-        this.possibleAttacks = possibleMoves.Knight.Attacks;
-        this.color = 'black'
-        this._img = this.color === 'black' ? BlackBishopImg : WhiteBishopImg
+        this.possibleMoves = possibleMoves.Bishop.Moves;
+        this.possibleAttacks = possibleMoves.Bishop.Attacks;
+        this._img = color === 'black' ? BlackBishopImg : WhiteBishopImg
         this.x = x
         this.y = y
     }

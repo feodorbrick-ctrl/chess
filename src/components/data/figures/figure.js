@@ -1,9 +1,11 @@
 export class Figure {
-    constructor(x, y) {
+    color = 'black';
+    constructor(x, y, color) {
         this.name = 'Figure';
         this.x = x;
         this.y = y;
         this._img = ''
+        this.color = color;
     }
 
     getCoordinates() {

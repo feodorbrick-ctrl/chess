@@ -12,6 +12,15 @@ export const startFigures = Array.from(
     (_, index) => new Cell(1 + index % 8, 1 + Math.floor(index / 8))
 );
 
+startFigures[0].figure = new Rook(1, 1, 'white');
+startFigures[1].figure = new Knight(2, 1, 'white');
+startFigures[2].figure = new Bishop(3, 1, 'white');
+startFigures[3].figure = new Queen(4, 1, 'white');
+startFigures[4].figure = new King(5, 1, 'white');
+startFigures[5].figure = new Bishop(6, 1, 'white');
+startFigures[6].figure = new Knight(7, 1, 'white');
+startFigures[7].figure = new Rook(8, 1, 'white');
+
 for (let x = 0; x < 8; x++) {
     startFigures[8 + x].figure = new Pawn(x + 1,2, 'white');
 }

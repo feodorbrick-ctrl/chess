@@ -5,7 +5,7 @@ import {possibleMoves} from "./possibleMoves";
 
 export class Pawn extends Figure{
     constructor(x, y, color = 'black') {
-        super();
+        super(x, y, color);
         this.name = 'Pawn';
         this.possibleMoves = possibleMoves.Pawn.Moves;
         this.possibleAttacks = possibleMoves.Pawn.Attacks;
