@@ -5,7 +5,7 @@ import {possibleMoves} from "./possibleMoves";
 
 export class Knight extends Figure{
     constructor(x, y, color = 'black') {
-        super();
+        super(x, y, color);
         this.name = 'Knight';
         this.possibleMoves = possibleMoves.Knight.Moves;
         this.possibleAttacks = possibleMoves.Knight.Attacks;
