@@ -16,16 +16,15 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             }
             <button onClick={() => {
                 findWereFigureCanStay(cells, figure)
-                if (figure.name === 'Figure') {
                     if (whichFigureCanStay !== null) {
                         setFigureCoordinates(figure, whichFigureCanStay, cells, setCells)
                         return;
                     }
 
-                }
+
                 setCells([...cells])
             }} className={cl.button}></button>
-            <div className={cl.canFigureStayFlag} style={{display: whichFigureCanStay === null ? 'none' : 'block'}}></div>
+            <div className={cl.canFigureStayFlag} style={{display: whichFigureCanStay === null ? 'none' : 'block', backgroundColor: figure.name === 'Figure' && '#BBDC12'}}></div>
         </div>
     );
 };

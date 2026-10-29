@@ -12,7 +12,6 @@ export function setFigureCoordinates(figure, whichFigureCanStay, cells, setCells
     setCells(currentCells => currentCells.map((cell, i) => {
         if (i === index) {
             const newCell = new Cell(cell.x, cell.y);
-            console.log(cell.x, cell.y);
             newCell.setFigure(whichFigureCanStay);
             return newCell;
         }

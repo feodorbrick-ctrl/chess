@@ -36,6 +36,7 @@ export class Cell {
 
     setFigure(figure) {
         this.figure = new figures[figure.name](this.x, this.y, figure.color);
+        console.log(this.figure, figure);
     }
 
 }

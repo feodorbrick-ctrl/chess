@@ -57,10 +57,14 @@ export function findWereFigureCanStay(figuresStays, figure) {
 
             if (cell.figure.name !== "Figure") {
                 directions.set(direction, true);
-                continue;
+                if (cell.figure.color === figure.color) {
+                    continue;
+                }
             }
         } else if (cell.figure.name !== "Figure") {
-            continue;
+            if (cell.figure.color === figure.color) {
+                continue;
+            }
         }
 
         cell.whichFigureCanStay = figure;
