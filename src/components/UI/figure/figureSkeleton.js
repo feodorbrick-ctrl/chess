@@ -3,6 +3,7 @@ import cl from './figureSkeleton.module.css'
 import {findWereFigureCanStay} from "../../../frameworks/findWereFigureCanStay";
 import Context from "../../../index";
 import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
+import {startFigures} from "../../data/startFigures";
 
 const FigureSkeleton = ({figure, whichFigureCanStay}) => {
     const {cells, setCells, whoIsGoing, setWhoIsGoing} = useContext(Context)
@@ -18,6 +19,12 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             <button onClick={() => {
                 findWereFigureCanStay(cells, figure)
                 if (whichFigureCanStay !== null) {
+                    if (figure.name === 'King') {
+                        console.log(`${figure.color} are dead`)
+                        setWhoIsGoing('white')
+                        setTimeout(() => setCells(startFigures), 1500)
+                        return;
+                    }
                     if (whoIsGoing === whichFigureCanStay.color) {
                         setFigureCoordinates(figure, whichFigureCanStay, cells, setCells)
                         setWhoIsGoing(whoIsGoing !== 'black' ? 'black' : 'white')
