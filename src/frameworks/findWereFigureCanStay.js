@@ -1,7 +1,7 @@
 const switchedCells = [];
 let isSwitchedCellsVisible = false;
 
-export function findWereFigureCanStay(figuresStays, figure) {
+export function findWereFigureCanStay(figuresStays, figure, whoIsGoing) {
     if (isSwitchedCellsVisible) {
         switchedCells.forEach(cell => {
             cell.whichFigureCanStay = null;
@@ -65,10 +65,11 @@ export function findWereFigureCanStay(figuresStays, figure) {
                 continue;
             }
         }
+        if (figure.color === whoIsGoing) {
+            cell.whichFigureCanStay = figure;
 
-        cell.whichFigureCanStay = figure;
-
-        switchedCells.push(cell);
+            switchedCells.push(cell);
+        }
     }
 
     isSwitchedCellsVisible = switchedCells.length > 0;

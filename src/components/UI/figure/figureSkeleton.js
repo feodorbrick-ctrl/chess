@@ -17,12 +17,15 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
                 <img className={cl.img} src={figure._img} alt={figure.name}/>
             }
             <button onClick={() => {
-                findWereFigureCanStay(cells, figure)
+                findWereFigureCanStay(cells, figure, whoIsGoing)
                 if (whichFigureCanStay !== null) {
                     if (figure.name === 'King') {
                         console.log(`${figure.color} are dead`)
-                        setWhoIsGoing('white')
-                        setTimeout(() => setCells(startFigures), 1500)
+                        setWhoIsGoing(null)
+                        setTimeout(() => {
+                            setWhoIsGoing('white')
+                            setCells(startFigures)
+                        }, 1500)
                         return;
                     }
                     if (whoIsGoing === whichFigureCanStay.color) {
@@ -34,7 +37,7 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
 
 
                 setCells([...cells])
-            }} className={cl.button}></button>
+            }} className={cl.button} style={{cursor: figure.color === whoIsGoing && 'pointer'}}></button>
             <div className={cl.canFigureStayFlag} style={{
                 display: whichFigureCanStay === null ? 'none' : 'block',
                 backgroundColor: figure.name === 'Figure' && '#BBDC12'
