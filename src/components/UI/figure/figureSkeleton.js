@@ -5,9 +5,10 @@ import Context from "../../../index";
 import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
 
 const FigureSkeleton = ({figure, whichFigureCanStay}) => {
-    const {cells, setCells} = useContext(Context)
+    const {cells, setCells, whoIsGoing, setWhoIsGoing} = useContext(Context)
     useEffect(() => {
-        if (whichFigureCanStay !== null) {}
+        if (whichFigureCanStay !== null) {
+        }
     }, [whichFigureCanStay])
     return (
         <div className={cl.figure}>
@@ -16,15 +17,21 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             }
             <button onClick={() => {
                 findWereFigureCanStay(cells, figure)
-                    if (whichFigureCanStay !== null) {
+                if (whichFigureCanStay !== null) {
+                    if (whoIsGoing === whichFigureCanStay.color) {
                         setFigureCoordinates(figure, whichFigureCanStay, cells, setCells)
+                        setWhoIsGoing(whoIsGoing !== 'black' ? 'black' : 'white')
                         return;
                     }
+                }
 
 
                 setCells([...cells])
             }} className={cl.button}></button>
-            <div className={cl.canFigureStayFlag} style={{display: whichFigureCanStay === null ? 'none' : 'block', backgroundColor: figure.name === 'Figure' && '#BBDC12'}}></div>
+            <div className={cl.canFigureStayFlag} style={{
+                display: whichFigureCanStay === null ? 'none' : 'block',
+                backgroundColor: figure.name === 'Figure' && '#BBDC12'
+            }}></div>
         </div>
     );
 };

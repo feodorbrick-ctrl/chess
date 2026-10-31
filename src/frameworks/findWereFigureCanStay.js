@@ -30,7 +30,6 @@ export function findWereFigureCanStay(figuresStays, figure) {
     for (const move of moves) {
         const targetX = figure.color === 'black' ? x - move[1] : x + move[1];
         const targetY = figure.color === 'black' ? y - move[0] : y + move[0];
-        console.log(figure.color)
 
         if (
             targetX < 1 || targetX > 8 ||

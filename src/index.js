@@ -9,9 +9,13 @@ const ContextProvider = (props) => {
 
     const [cells, setCells] = React.useState(() => [...startFigures]);
 
+    const [whoIsGoing, setWhoIsGoing] = React.useState('white');
+
     const contextValue = {
         cells,
         setCells,
+        whoIsGoing,
+        setWhoIsGoing,
     }
     return (
         <Context.Provider value={contextValue}>
