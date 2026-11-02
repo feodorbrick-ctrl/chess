@@ -6,7 +6,7 @@ import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
 import {startFigures} from "../../data/startFigures";
 
 const FigureSkeleton = ({figure, whichFigureCanStay}) => {
-    const {cells, setCells, whoIsGoing, setWhoIsGoing} = useContext(Context)
+    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible, isConfettiVisible} = useContext(Context)
     useEffect(() => {
         if (whichFigureCanStay !== null) {
         }
@@ -21,11 +21,13 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
                 if (whichFigureCanStay !== null) {
                     if (figure.name === 'King') {
                         console.log(`${figure.color} are dead`)
-                        setWhoIsGoing(null)
+                        setWhoIsGoing(figure.color === 'black' ? 'white ' : 'black ')
+                        setConfettiVisible(true)
                         setTimeout(() => {
                             setWhoIsGoing('white')
+                            setConfettiVisible(false)
                             setCells(startFigures)
-                        }, 1500)
+                        }, 5000)
                         return;
                     }
                     if (whoIsGoing === whichFigureCanStay.color) {

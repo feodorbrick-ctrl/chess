@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+* {
+  font-family: Consolas, sans-serif;
+}
+
+.winText {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  font-size: 3em;
+  z-index: 20;
+}

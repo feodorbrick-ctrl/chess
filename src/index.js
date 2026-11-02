@@ -10,12 +10,15 @@ const ContextProvider = (props) => {
     const [cells, setCells] = React.useState(() => [...startFigures]);
 
     const [whoIsGoing, setWhoIsGoing] = React.useState('white');
+    const [isConfettiVisible, setConfettiVisible] = React.useState(false);
 
     const contextValue = {
         cells,
         setCells,
         whoIsGoing,
         setWhoIsGoing,
+        isConfettiVisible,
+        setConfettiVisible,
     }
     return (
         <Context.Provider value={contextValue}>
