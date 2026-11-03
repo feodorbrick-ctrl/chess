@@ -10,8 +10,8 @@ function App() {
         <div className={cl.App}>
             <GameField/>
             <Confetti count={100} active={isConfettiVisible}/>
-            {whoIsGoing !== 'black' && whoIsGoing !== 'white' &&
-                <h1 className={cl.winText}>{whoIsGoing}is win</h1>
+            {isConfettiVisible &&
+                <h1 className={cl.winText}>{whoIsGoing === 'white' ? 'black' : 'white'} are win</h1>
             }
         </div>
     );
