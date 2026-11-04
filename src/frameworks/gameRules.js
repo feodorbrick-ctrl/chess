@@ -8,28 +8,6 @@ const getEnemy = color => color === 'white' ? 'black' : 'white';
 const getDirection = color => color === 'white' ? 1 : -1;
 
 
-// Проверка свободного пути
-function isPathClear(cells, figure, dx, dy) {
-    if (!['Queen', 'Rook', 'Bishop'].includes(figure.name)) {
-        return true;
-    }
-
-    const steps = Math.max(Math.abs(dx), Math.abs(dy));
-
-    for (let i = 1; i < steps; i++) {
-        const x = figure.x + Math.sign(dx) * i;
-        const y = figure.y + Math.sign(dy) * i;
-
-        if (!isEmpty(cells[getIndex(x, y)]?.figure)) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-
-// 1. Проверка шаха
 export function isKingInCheck(cells, color) {
     const king = cells.find(cell =>
         cell.figure?.name === 'King' &&
@@ -41,25 +19,60 @@ export function isKingInCheck(cells, color) {
     return cells.some(cell => {
         const figure = cell.figure;
 
-        if (isEmpty(figure) || figure.color === color) return false;
+        if (isEmpty(figure) || figure.color === color) {
+            return false;
+        }
 
         const attacks = figure.possibleAttacks || [];
+
         const direction = figure.name === 'Pawn'
             ? getDirection(figure.color)
             : 1;
 
-        return attacks.some(([dx, dy]) => {
-            dx *= direction;
-            dy *= direction;
+        return attacks.some(([dy, dx]) => {
+            const attackX = figure.x + dx * direction;
+            const attackY = figure.y + dy * direction;
 
-            if (
-                figure.x + dx !== king.x ||
-                figure.y + dy !== king.y
-            ) return false;
+            if (attackX !== king.x || attackY !== king.y) {
+                return false;
+            }
 
-            return isPathClear(cells, figure, dx, dy);
+            return isPathClear(cells, figure, king.x, king.y);
         });
     });
+}
+
+function isPathClear(cells, figure, targetX, targetY) {
+    if (
+        figure.name === 'King' ||
+        figure.name === 'Knight' ||
+        figure.name === 'Pawn'
+    ) {
+        return true;
+    }
+
+    const dx = targetX - figure.x;
+    const dy = targetY - figure.y;
+
+    const stepX = Math.sign(dx);
+    const stepY = Math.sign(dy);
+
+    let x = figure.x + stepX;
+    let y = figure.y + stepY;
+
+    while (x !== targetX || y !== targetY) {
+        const index = 8 * (y - 1) + (x - 1);
+        const cell = cells[index];
+
+        if (!cell || !isEmpty(cell.figure)) {
+            return false;
+        }
+
+        x += stepX;
+        y += stepY;
+    }
+
+    return true;
 }
 
 

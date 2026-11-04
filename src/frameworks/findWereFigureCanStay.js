@@ -20,6 +20,7 @@ export function findWereFigureCanStay(figuresStays, figure, whoIsGoing) {
     }
 
     const moves = figure.possibleMoves;
+    const attacks = figure.possibleAttacks;
 
     if (!moves) {
         return figuresStays;
@@ -70,9 +71,36 @@ export function findWereFigureCanStay(figuresStays, figure, whoIsGoing) {
         } else if (cell.figure.name !== 'Figure' && cell.figure.color === figure.color) {
             continue;
         }
+        if (figure.name === 'Pawn' && cell.figure.name !== 'Figure') continue;
+
         if (figure.color === whoIsGoing) {
             cell.whichFigureCanStay = figure;
             switchedCells.push(cell);
+        }
+    }
+    if (figure.name === "Pawn") {
+        for (const attack of attacks) {
+            const targetX = figure.color === 'black' ? x - attack[1] : x + attack[1];
+            const targetY = figure.color === 'black' ? y - attack[0] : y + attack[0];
+
+            if (
+                targetX < 1 || targetX > 8 ||
+                targetY < 1 || targetY > 8
+            ) {
+                continue;
+            }
+
+            const index = 8 * (targetY - 1) + (targetX - 1);
+            const cell = figuresStays[index];
+
+            if (!cell) continue;
+
+            if (cell.figure.name === "Figure" || whoIsGoing === cell.figure.color) continue;
+
+            if (figure.color === whoIsGoing) {
+                cell.whichFigureCanStay = figure;
+                switchedCells.push(cell);
+            }
         }
     }
 

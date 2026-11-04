@@ -61,8 +61,8 @@ const knightMoves = [
 const pawnMoves = [[1, 0]];
 
 const pawnAttacks = [
-    [-1, 1],
-    [1, 1]
+    [1, 1],
+    [1, -1]
 ];
 
 export const possibleMoves = {
