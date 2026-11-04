@@ -1,3 +1,5 @@
+import {isMoveSafe} from "./gameRules";
+
 const switchedCells = [];
 let isSwitchedCellsVisible = false;
 
@@ -41,7 +43,12 @@ export function findWereFigureCanStay(figuresStays, figure, whoIsGoing) {
         const index = 8 * (targetY - 1) + (targetX - 1);
         const cell = figuresStays[index];
 
-        if (!cell) {
+        if (!cell) continue;
+
+        if (
+            figure.name === 'King' &&
+            !isMoveSafe(figuresStays, figure, targetX, targetY)
+        ) {
             continue;
         }
 
@@ -60,14 +67,11 @@ export function findWereFigureCanStay(figuresStays, figure, whoIsGoing) {
                     continue;
                 }
             }
-        } else if (cell.figure.name !== "Figure") {
-            if (cell.figure.color === figure.color) {
-                continue;
-            }
+        } else if (cell.figure.name !== 'Figure' && cell.figure.color === figure.color) {
+            continue;
         }
         if (figure.color === whoIsGoing) {
             cell.whichFigureCanStay = figure;
-
             switchedCells.push(cell);
         }
     }

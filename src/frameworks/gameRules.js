@@ -174,3 +174,24 @@ export function isStalemate(cells, color) {
 export function getWinner(cells, color) {
     return isCheckmate(cells, color) ? getEnemy(color) : null;
 }
+
+export function isMoveSafe(cells, figure, x, y) {
+    const newCells = cells.map(cell => {
+        // Убираем фигуру со старой клетки
+        if (cell.x === figure.x && cell.y === figure.y) {
+            return {...cell, figure: null};
+        }
+
+        // Перемещаем фигуру на новую клетку
+        if (cell.x === x && cell.y === y) {
+            return {
+                ...cell,
+                figure: {...figure, x, y}
+            };
+        }
+
+        return cell;
+    });
+
+    return !isKingInCheck(newCells, figure.color);
+}

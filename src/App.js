@@ -11,7 +11,7 @@ function App() {
             <GameField/>
             <Confetti count={100} active={isConfettiVisible}/>
             {isConfettiVisible &&
-                <h1 className={cl.winText}>{whoIsGoing === 'white' ? 'black' : 'white'} are win</h1>
+                <h1 className={cl.winText}>{whoIsGoing === 'white' ? 'black' : 'white'} are winner</h1>
             }
         </div>
     );
