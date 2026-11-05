@@ -19,7 +19,7 @@ export function findWereFigureCanStay(figuresStays, figure, whoIsGoing) {
         return figuresStays;
     }
 
-    const moves = figure.possibleMoves;
+    const moves = figure.name !== 'Pawn' ? figure.possibleMoves : (figure.isMyFirstMove === true ? [[1, 0], [2, 0]] : figure.possibleMoves);
     const attacks = figure.possibleAttacks;
 
     if (!moves) {

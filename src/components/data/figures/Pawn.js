@@ -4,7 +4,7 @@ import WhitePawnImg from '../../../images/white/pawn-white.webp'
 import {possibleMoves} from "./possibleMoves";
 
 export class Pawn extends Figure{
-    constructor(x, y, color = 'black') {
+    constructor(x, y, color = 'black', isMyFirstMove = true) {
         super(x, y, color);
         this.name = 'Pawn';
         this.possibleMoves = possibleMoves.Pawn.Moves;
@@ -12,5 +12,7 @@ export class Pawn extends Figure{
         this._img = color === 'black' ? BlackPawnImg : WhitePawnImg;
         this.x = x
         this.y = y
+        this.isMyFirstMove = isMyFirstMove;
+        console.log(isMyFirstMove)
     }
 }
