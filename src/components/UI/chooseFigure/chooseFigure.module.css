@@ -1,0 +1,51 @@
+.picker {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.title {
+    margin: 0;
+    font-size: 18px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.option:hover {
+    background: #f0f0f0;
+}
+
+.option:active {
+    transform: scale(0.96);
+}
+
+.image {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.label {
+    text-transform: capitalize;
+}
