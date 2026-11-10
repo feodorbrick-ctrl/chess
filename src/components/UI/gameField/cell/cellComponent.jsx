@@ -3,7 +3,6 @@ import cl from './cellComponent.module.css'
 import FigureSkeleton from "../../figure/figureSkeleton";
 import {Figure} from "../../../data/figures/figure";
 import {setFigureCoordinates} from "../../../../frameworks/setFigureCoordinates";
-import {Queen} from "../../../data/figures/Queen";
 import Context from "../../../../index";
 import Modal from "../../modal/modal";
 import ChooseFigure from "../../chooseFigure/chooseFigure";
@@ -14,7 +13,6 @@ const CellComponent = ({whichFigureCanStay, color, figure}) => {
     useEffect(() => {
         if (figure.name === 'Pawn' && (figure.y === 8 || figure.y === 1)) {
             setModalVisible(true);
-            // setFigureCoordinates(figure, new Queen(figure.x, figure.y, figure.color), cells, setCells)
         }
     }, [figure]);
     return (

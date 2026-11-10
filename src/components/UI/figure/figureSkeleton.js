@@ -17,14 +17,13 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
         console.log(winner + ' wins!');
 
         setConfettiVisible(true);
+        setWhoIsGoing(null);
 
-        const timer = setTimeout(() => {
+        setTimeout(() => {
             setWhoIsGoing('white');
             setConfettiVisible(false);
             setCells([...startFigures]);
         }, 5000);
-
-        return () => clearTimeout(timer);
 
     }, [cells, whoIsGoing]);
 

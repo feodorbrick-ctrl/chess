@@ -2,6 +2,7 @@ import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {startFigures} from "./components/data/startFigures";
+import {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const Context = createContext(null);
@@ -21,9 +22,11 @@ const ContextProvider = (props) => {
         setConfettiVisible,
     }
     return (
-        <Context.Provider value={contextValue}>
-            {props.children}
-        </Context.Provider>
+        <BrowserRouter>
+            <Context.Provider value={contextValue}>
+                {props.children}
+            </Context.Provider>
+        </BrowserRouter>
     )
 }
 root.render(
