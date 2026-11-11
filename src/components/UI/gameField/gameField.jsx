@@ -14,6 +14,7 @@ const GameField = () => {
             gridTemplateRows: 'repeat(8, 1fr)',
             border: '3px solid green',
             padding: '2px',
+            backgroundColor: 'white',
         }}>
             {cells.map((value, index) =>
                 <CellComponent key={index.toString()} whichFigureCanStay={cells[index].whichFigureCanStay} i={index} color={cells[index].getColor()} figure={cells[index].figure}/>

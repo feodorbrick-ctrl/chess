@@ -1,0 +1,24 @@
+.home {
+    width: 100vw;
+    height: 100vh;
+    background-color: #DD9F6F;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 20vw;
+    height: 50px;
+    border: #995F2F solid 5px;
+    border-radius: 7px;
+    background-color: #F0D8A1;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    filter: brightness(0.8);
+}

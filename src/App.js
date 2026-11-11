@@ -1,4 +1,4 @@
-import cl from './App.module.css'
+import cl from './styles/App.module.css'
 import AppRouter from "./components/AppRouter";
 
 function App() {
