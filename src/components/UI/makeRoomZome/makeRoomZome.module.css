@@ -1,0 +1,14 @@
+.makeRoom {
+    width: 50vw;
+    height: 60vh;
+    background-color: #622B14;
+    padding: 20px;
+    border-radius: 10px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

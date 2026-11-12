@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <div className={cl.home}>
             <button onClick={() => navigate('/chess')}>play in one device</button>
-            <button onClick={() => navigate('/chess')}>play online</button>
+            <button onClick={() => navigate('/make-room')}>play online</button>
         </div>
     );
 };

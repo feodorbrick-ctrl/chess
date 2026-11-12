@@ -9,7 +9,7 @@
 
 button {
     width: 20vw;
-    height: 50px;
+    min-height: 50px;
     border: #995F2F solid 5px;
     border-radius: 7px;
     background-color: #F0D8A1;
@@ -17,6 +17,16 @@ button {
     font-size: 20px;
     cursor: pointer;
     transition: all 0.2s;
+}
+
+input {
+    width: 20vw;
+    min-height: 50px;
+    border: #995F2F solid 5px;
+    border-radius: 7px;
+    background-color: #F0D8A1;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 button:hover {
