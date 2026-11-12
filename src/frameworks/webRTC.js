@@ -1,11 +1,11 @@
 export class WebRTC {
-    constructor() {
+    constructor(isConnected) {
         this.peer = new RTCPeerConnection({
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' }
             ]
         });
-
+        this.setIsConnected = isConnected;
         this.channel = null;
 
         this.peer.ondatachannel = event => {
@@ -25,7 +25,13 @@ export class WebRTC {
 
     setupChannel() {
         this.channel.onopen = () => {
+            this.setIsConnected(true);
             console.log('Connected!');
+        };
+
+        this.channel.onclose = () => {
+            this.setIsConnected(false);
+            console.log('Disconnected!');
         };
 
         this.channel.onmessage = event => {
