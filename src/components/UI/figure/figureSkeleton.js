@@ -8,7 +8,7 @@ import {startFigures} from "../../data/startFigures";
 import {getWinner} from "../../../frameworks/gameRules";
 
 const FigureSkeleton = ({figure, whichFigureCanStay}) => {
-    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible} = useContext(Context);
+    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible, isGameOnline, webRTC} = useContext(Context);
     useEffect(() => {
         const winner = getWinner(cells, whoIsGoing);
 
@@ -42,7 +42,9 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
                                 figure,
                                 whichFigureCanStay,
                                 cells,
-                                setCells
+                                setCells,
+                                isGameOnline,
+                                webRTC.current,
                             );
                             setWhoIsGoing(
                                 whoIsGoing !== 'black' ? 'black' : 'white'

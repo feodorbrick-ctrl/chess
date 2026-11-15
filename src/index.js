@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, {createContext, useRef} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {startFigures} from "./components/data/startFigures";
@@ -12,6 +12,9 @@ const ContextProvider = (props) => {
 
     const [whoIsGoing, setWhoIsGoing] = React.useState('white');
     const [isConfettiVisible, setConfettiVisible] = React.useState(false);
+    const [isGameOnline, setGameOnline] = React.useState(false);
+    const webRTC = useRef(null);
+    console.log(webRTC.current);
 
     const contextValue = {
         cells,
@@ -20,6 +23,9 @@ const ContextProvider = (props) => {
         setWhoIsGoing,
         isConfettiVisible,
         setConfettiVisible,
+        isGameOnline,
+        setGameOnline,
+        webRTC,
     }
     return (
         <BrowserRouter>

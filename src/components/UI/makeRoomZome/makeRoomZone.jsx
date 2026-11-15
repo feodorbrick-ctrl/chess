@@ -1,25 +1,31 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import cl from './makeRoomZome.module.css';
 import {WebRTC} from '../../../frameworks/webRTC';
 import {useNavigate} from "react-router-dom";
+import Context from "../../../index";
+import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
 
 const MakeRoomZone = () => {
+    const {setGameOnline, setWhoIsGoing, webRTC, cells, setCells} = useContext(Context);
     const [offerInput, setOfferInput] = useState('');
     const [answerInput, setAnswerInput] = useState('');
     const [connectionData, setConnectionData] = useState('');
     const navigate = useNavigate();
     const [isDeviseConnected, setIsDeviseConnected] = useState(null);
 
-    const webRTC = useRef(null);
+    const moveFigure = (whichFigureCanStayI, figureI) => {
+        const figure = cells[figureI];
+        const whichFigureCanStay = cells[whichFigureCanStayI];
+        console.log(figureI, whichFigureCanStayI);
 
-    if (webRTC.current === null) {
-        webRTC.current = new WebRTC(setIsDeviseConnected);
+        setFigureCoordinates(figure.figure, whichFigureCanStay.figure, cells, setCells, false)
     }
 
     const createRoom = async () => {
-        await webRTC.current.createRoom();
 
+        await webRTC.current.createRoom();
         webRTC.current.peer.onicecandidate = event => {
+
             if (!event.candidate) {
                 setConnectionData(
                     JSON.stringify(webRTC.current.peer.localDescription)
@@ -27,7 +33,6 @@ const MakeRoomZone = () => {
             }
         };
     };
-
     const joinRoom = async () => {
         try {
             const offer = JSON.parse(offerInput);
@@ -35,28 +40,33 @@ const MakeRoomZone = () => {
             const answer = await webRTC.current.joinRoom(offer);
 
             setAnswerInput(JSON.stringify(answer));
-        } catch(e) {
-            console.log(e)
+        } catch (e) {
+            console.log(e);
         }
     };
-
     const connect = async () => {
+
         try {
             const answer = JSON.parse(answerInput);
             await webRTC.current.connect(answer);
         } catch (error) {
             console.log(error);
         }
-
     };
+
+    if (webRTC.current === null) {
+        webRTC.current = new WebRTC(setIsDeviseConnected, setWhoIsGoing, moveFigure, webRTC);
+    }
 
     useEffect(() => {
         if (isDeviseConnected === true) {
             navigate('/chess');
+            setGameOnline(true);
+            setWhoIsGoing('white')
         } else if (isDeviseConnected === false) {
             navigate('/');
         }
-    }, [isDeviseConnected, navigate]);
+    }, [isDeviseConnected, navigate, setGameOnline, setWhoIsGoing]);
 
     return (
         <div className={cl.makeRoom}>
@@ -65,8 +75,8 @@ const MakeRoomZone = () => {
             {connectionData !== '' &&
                 <input placeholder="Your offer" value={connectionData} readOnly/>
             }
-            { connectionData === '' &&
-                <div style={{display:'grid'}}>
+            {connectionData === '' &&
+                <div style={{display: 'grid'}}>
                     <hr/>
                     step 2. click 'Join to created <br/> room' after write first offer
                     <input placeholder="Write offer for game" value={offerInput}
