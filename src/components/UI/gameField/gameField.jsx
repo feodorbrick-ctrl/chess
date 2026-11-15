@@ -1,9 +1,19 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import CellComponent from "./cell/cellComponent";
 import Context from "../../../index";
+import {useLocation} from "react-router-dom";
+import {startFigures} from "../../data/startFigures";
 
 const GameField = () => {
-    const {cells} = useContext(Context)
+    const {cells, setCells, setWhoIsGoing} = useContext(Context)
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === '/chess') {
+            setCells(startFigures)
+            setWhoIsGoing('white')
+        }
+    }, [location])
 
     return (
         <div style={{

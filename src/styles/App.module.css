@@ -19,3 +19,9 @@
   font-size: 3em;
   z-index: 20;
 }
+
+.backButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
