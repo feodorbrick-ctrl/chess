@@ -8,7 +8,7 @@ import {startFigures} from "../../data/startFigures";
 import {getWinner} from "../../../frameworks/gameRules";
 
 const FigureSkeleton = ({figure, whichFigureCanStay}) => {
-    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible, isGameOnline, webRTC} = useContext(Context);
+    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible, isGameOnline, webRTC, whatColorAmI} = useContext(Context);
     useEffect(() => {
         const winner = getWinner(cells, whoIsGoing);
 
@@ -34,25 +34,27 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             }
             <button
                 onClick={() => {
-                    findWereFigureCanStay(cells, figure, whoIsGoing);
+                    if (isGameOnline && whatColorAmI === whoIsGoing) {
+                        findWereFigureCanStay(cells, figure, whoIsGoing);
 
-                    if (whichFigureCanStay !== null) {
-                        if (whoIsGoing === whichFigureCanStay.color) {
-                            setFigureCoordinates(
-                                figure,
-                                whichFigureCanStay,
-                                cells,
-                                setCells,
-                                isGameOnline,
-                                webRTC.current,
-                            );
-                            setWhoIsGoing(
-                                whoIsGoing !== 'black' ? 'black' : 'white'
-                            );
-                            return;
+                        if (whichFigureCanStay !== null) {
+                            if (whoIsGoing === whichFigureCanStay.color) {
+                                setFigureCoordinates(
+                                    figure,
+                                    whichFigureCanStay,
+                                    cells,
+                                    setCells,
+                                    isGameOnline,
+                                    webRTC.current,
+                                );
+                                setWhoIsGoing(
+                                    whoIsGoing !== 'black' ? 'black' : 'white'
+                                );
+                                return;
+                            }
                         }
+                        setCells([...cells]);
                     }
-                    setCells([...cells]);
                 }}
                 className={cl.button}
                 style={{

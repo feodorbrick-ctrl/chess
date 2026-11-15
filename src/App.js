@@ -13,7 +13,7 @@ function App() {
             {location.pathname !== '/' &&
                 <button className={cl.backButton} onClick={() => {
                     if (isGameOnline) {
-                        webRTC.close()
+                        webRTC.current.close()
                     }
                     navigate('/')
                 }}>Back</button>

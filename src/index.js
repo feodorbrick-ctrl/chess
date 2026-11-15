@@ -13,6 +13,7 @@ const ContextProvider = (props) => {
     const [whoIsGoing, setWhoIsGoing] = React.useState('white');
     const [isConfettiVisible, setConfettiVisible] = React.useState(false);
     const [isGameOnline, setGameOnline] = React.useState(false);
+    const [whatColorAmI, setWhatColorAmI] = React.useState('white');
     const webRTC = useRef(null);
     console.log(webRTC.current);
 
@@ -26,6 +27,8 @@ const ContextProvider = (props) => {
         isGameOnline,
         setGameOnline,
         webRTC,
+        whatColorAmI,
+        setWhatColorAmI,
     }
     return (
         <BrowserRouter>

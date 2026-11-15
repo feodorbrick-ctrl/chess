@@ -1,5 +1,5 @@
 export class WebRTC {
-    constructor(isConnected, setWhoIsGoing, setCoordinates, webRTC) {
+    constructor(isConnected, setWhoIsGoing, setCoordinates, webRTC, setWatColorAmI, setConnected) {
         this.peer = new RTCPeerConnection({
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' }
@@ -8,6 +8,7 @@ export class WebRTC {
         this.setCoordinates = setCoordinates;
         this.setIsConnected = isConnected;
         this.setWhoIsGoing = setWhoIsGoing;
+        this.setWhatColorAmI = setWatColorAmI;
         this.channel = null;
         this.webRTC = webRTC;
 
@@ -27,6 +28,7 @@ export class WebRTC {
     }
 
     setupChannel() {
+        this.sendMessage({type: 'start'})
         this.channel.onopen = () => {
             this.setIsConnected(true);
             console.log('Connected!');
@@ -45,9 +47,12 @@ export class WebRTC {
             if (message.type === 'move') {
                 this.setCoordinates(message.message[0], message.message[1]);
             }
+            if (message.type === 'moved') {
+                this.setWhoIsGoing(currentTurn => currentTurn === 'black' ? 'white' : 'black');
+            }
 
             if (message.type === 'start') {
-                this.setIsConnected(true);
+                this.setWhatColorAmI('black')
             }
         };
     }
@@ -88,8 +93,12 @@ export class WebRTC {
     }
 
     close() {
-        this.webRTC.current = null
-        this.channel?.close();
-        this.peer.close();
+        this.setIsConnected(false);
+        this.channel = null
+        this.peer = new RTCPeerConnection({
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' }
+            ]
+        })
     }
 }

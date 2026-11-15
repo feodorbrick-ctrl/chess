@@ -6,7 +6,7 @@ import Context from "../../../index";
 import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
 
 const MakeRoomZone = () => {
-    const {setGameOnline, setWhoIsGoing, webRTC, cells, setCells} = useContext(Context);
+    const {setGameOnline, setWhoIsGoing, webRTC, cells, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
     const [offerInput, setOfferInput] = useState('');
     const [answerInput, setAnswerInput] = useState('');
     const [connectionData, setConnectionData] = useState('');
@@ -22,7 +22,6 @@ const MakeRoomZone = () => {
     }
 
     const createRoom = async () => {
-
         await webRTC.current.createRoom();
         webRTC.current.peer.onicecandidate = event => {
 
@@ -55,7 +54,7 @@ const MakeRoomZone = () => {
     };
 
     if (webRTC.current === null) {
-        webRTC.current = new WebRTC(setIsDeviseConnected, setWhoIsGoing, moveFigure, webRTC);
+        webRTC.current = new WebRTC(setIsDeviseConnected, setWhoIsGoing, moveFigure, webRTC, setWhatColorAmI, setIsDeviseConnected);
     }
 
     useEffect(() => {
@@ -67,6 +66,8 @@ const MakeRoomZone = () => {
             navigate('/');
         }
     }, [isDeviseConnected, navigate, setGameOnline, setWhoIsGoing]);
+
+    useEffect(() => console.log(whoIsGoing, whatColorAmI), [whoIsGoing, whatColorAmI])
 
     return (
         <div className={cl.makeRoom}>
