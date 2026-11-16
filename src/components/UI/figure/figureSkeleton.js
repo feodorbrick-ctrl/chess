@@ -25,7 +25,7 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             setCells([...startFigures]);
         }, 5000);
 
-    }, [cells, whoIsGoing]);
+    }, [cells, setCells, setConfettiVisible, setWhoIsGoing, whoIsGoing]);
 
     return (
         <div className={cl.figure}>

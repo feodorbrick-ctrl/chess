@@ -13,7 +13,7 @@ const GameField = () => {
             setCells(startFigures)
             setWhoIsGoing('white')
         }
-    }, [location])
+    }, [location, setCells, setWhoIsGoing])
 
     return (
         <div style={{
