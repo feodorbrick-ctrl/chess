@@ -1,8 +1,15 @@
 export class WebRTC {
-    constructor(isConnected, setWhoIsGoing, setCoordinates, webRTC, setWatColorAmI, setConnected) {
+    constructor(isConnected, setWhoIsGoing, setCoordinates, webRTC, setWatColorAmI) {
         this.peer = new RTCPeerConnection({
             iceServers: [
-                { urls: 'stun:stun.l.google.com:19302' }
+                {
+                    urls: 'stun:stun.l.google.com:19302'
+                },
+                {
+                    urls: 'turn:YOUR_TURN_SERVER:3478',
+                    username: 'YOUR_USERNAME',
+                    credential: 'YOUR_PASSWORD'
+                }
             ]
         });
         this.setCoordinates = setCoordinates;
@@ -10,7 +17,6 @@ export class WebRTC {
         this.setWhoIsGoing = setWhoIsGoing;
         this.setWhatColorAmI = setWatColorAmI;
         this.channel = null;
-        this.webRTC = webRTC;
 
         this.peer.ondatachannel = event => {
             this.channel = event.channel;
@@ -45,10 +51,15 @@ export class WebRTC {
             console.log('Received:', message);
 
             if (message.type === 'move') {
+                console.log(message.message[0], message.message[1])
                 this.setCoordinates(message.message[0], message.message[1]);
             }
             if (message.type === 'moved') {
                 this.setWhoIsGoing(currentTurn => currentTurn === 'black' ? 'white' : 'black');
+            }
+
+            if (message.type === 'close') {
+                this.setIsConnected(false);
             }
 
             if (message.type === 'start') {
@@ -94,6 +105,7 @@ export class WebRTC {
 
     close() {
         this.setIsConnected(false);
+        this.sendMessage({type: 'close'});
         this.channel = null
         this.peer = new RTCPeerConnection({
             iceServers: [

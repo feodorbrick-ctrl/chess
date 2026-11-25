@@ -14,7 +14,6 @@ export async function setFigureCoordinates(figure, whichFigureCanStay, cells, se
         webRTC.sendMessage({type: 'move', message: message})
         webRTC.sendMessage({type: 'moved'})
     }
-    console.log(whichFigureCanStay)
 
     setCells(currentCells => currentCells.map((cell, i) => {
         if (i === index) {

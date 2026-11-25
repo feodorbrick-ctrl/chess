@@ -5,14 +5,14 @@ import Context from "./index";
 import {useLocation, useNavigate} from "react-router-dom";
 
 function App() {
-    const {webRTC, isGameOnline} = useContext(Context);
+    const {webRTC, isDeviceConnected} = useContext(Context);
     const location = useLocation();
     const navigate = useNavigate();
     return (
         <div className={cl.App}>
             {location.pathname !== '/' &&
                 <button className={cl.backButton} onClick={() => {
-                    if (isGameOnline) {
+                    if (isDeviceConnected) {
                         webRTC.current.close()
                     }
                     navigate('/')

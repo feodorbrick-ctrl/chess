@@ -13,6 +13,5 @@ export class Pawn extends Figure{
         this.x = x
         this.y = y
         this.isMyFirstMove = isMyFirstMove;
-        console.log(isMyFirstMove)
     }
 }

@@ -8,7 +8,7 @@ import {startFigures} from "../../data/startFigures";
 import {getWinner} from "../../../frameworks/gameRules";
 
 const FigureSkeleton = ({figure, whichFigureCanStay}) => {
-    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible, isGameOnline, webRTC, whatColorAmI} = useContext(Context);
+    const {cells, setCells, whoIsGoing, setWhoIsGoing, setConfettiVisible, webRTC, whatColorAmI, isDeviceConnected} = useContext(Context);
     useEffect(() => {
         const winner = getWinner(cells, whoIsGoing);
 
@@ -34,7 +34,7 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             }
             <button
                 onClick={() => {
-                    if (isGameOnline && whatColorAmI === whoIsGoing) {
+                    if (!isDeviceConnected || whatColorAmI === whoIsGoing) {
                         findWereFigureCanStay(cells, figure, whoIsGoing);
 
                         if (whichFigureCanStay !== null) {
@@ -44,7 +44,7 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
                                     whichFigureCanStay,
                                     cells,
                                     setCells,
-                                    isGameOnline,
+                                    isDeviceConnected,
                                     webRTC.current,
                                 );
                                 setWhoIsGoing(

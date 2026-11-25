@@ -6,7 +6,7 @@ import Context from "../../../index";
 import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
 
 const MakeRoomZone = () => {
-    const {setGameOnline, setWhoIsGoing, webRTC, cells, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
+    const {setDeviceConnected, setWhoIsGoing, webRTC, cells, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
     const [offerInput, setOfferInput] = useState('');
     const [answerInput, setAnswerInput] = useState('');
     const [connectionData, setConnectionData] = useState('');
@@ -16,7 +16,6 @@ const MakeRoomZone = () => {
     const moveFigure = (whichFigureCanStayI, figureI) => {
         const figure = cells[figureI];
         const whichFigureCanStay = cells[whichFigureCanStayI];
-        console.log(figureI, whichFigureCanStayI);
 
         setFigureCoordinates(figure.figure, whichFigureCanStay.figure, cells, setCells, false)
     }
@@ -54,18 +53,17 @@ const MakeRoomZone = () => {
     };
 
     if (webRTC.current === null) {
-        webRTC.current = new WebRTC(setIsDeviseConnected, setWhoIsGoing, moveFigure, webRTC, setWhatColorAmI, setIsDeviseConnected);
+        webRTC.current = new WebRTC(setIsDeviseConnected, setWhoIsGoing, moveFigure, webRTC, setWhatColorAmI);
     }
 
     useEffect(() => {
         if (isDeviseConnected === true) {
             navigate('/chess');
-            setGameOnline(true);
             setWhoIsGoing('white')
         } else if (isDeviseConnected === false) {
             navigate('/');
         }
-    }, [isDeviseConnected, navigate, setGameOnline, setWhoIsGoing]);
+    }, [isDeviseConnected, navigate, setDeviceConnected, setWhoIsGoing]);
 
     useEffect(() => console.log(whoIsGoing, whatColorAmI), [whoIsGoing, whatColorAmI])
 
