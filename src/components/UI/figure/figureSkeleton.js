@@ -34,6 +34,7 @@ const FigureSkeleton = ({figure, whichFigureCanStay}) => {
             }
             <button
                 onClick={() => {
+                    console.log(isDeviceConnected)
                     if (!isDeviceConnected || whatColorAmI === whoIsGoing) {
                         findWereFigureCanStay(cells, figure, whoIsGoing);
 

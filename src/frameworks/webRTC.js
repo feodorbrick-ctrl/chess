@@ -1,5 +1,5 @@
 export class WebRTC {
-    constructor(isConnected, setWhoIsGoing, setCoordinates, webRTC, setWatColorAmI) {
+    constructor(setIsConnected, setWhoIsGoing, setCoordinates, webRTC, setWatColorAmI) {
         this.peer = new RTCPeerConnection({
             iceServers: [
                 {
@@ -13,7 +13,7 @@ export class WebRTC {
             ]
         });
         this.setCoordinates = setCoordinates;
-        this.setIsConnected = isConnected;
+        this.setIsConnected = setIsConnected;
         this.setWhoIsGoing = setWhoIsGoing;
         this.setWhatColorAmI = setWatColorAmI;
         this.channel = null;
@@ -34,9 +34,8 @@ export class WebRTC {
     }
 
     setupChannel() {
-        this.sendMessage({type: 'start'})
         this.channel.onopen = () => {
-            this.setIsConnected(true);
+            this.sendMessage({type: 'start'})
             console.log('Connected!');
         };
 
@@ -51,7 +50,6 @@ export class WebRTC {
             console.log('Received:', message);
 
             if (message.type === 'move') {
-                console.log(message.message[0], message.message[1])
                 this.setCoordinates(message.message[0], message.message[1]);
             }
             if (message.type === 'moved') {
@@ -63,6 +61,7 @@ export class WebRTC {
             }
 
             if (message.type === 'start') {
+                this.setIsConnected(true);
                 this.setWhatColorAmI('black')
             }
         };
