@@ -13,7 +13,8 @@ function App() {
             {location.pathname !== '/' &&
                 <button className={cl.backButton} onClick={() => {
                     if (isDeviceConnected) {
-                        webRTC.current.close()
+                        webRTC.current.close();
+                        webRTC.current = null;
                     }
                     navigate('/')
                 }}>Back</button>

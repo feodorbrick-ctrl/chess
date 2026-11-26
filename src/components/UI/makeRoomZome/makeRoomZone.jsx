@@ -6,18 +6,17 @@ import Context from "../../../index";
 import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
 
 const MakeRoomZone = () => {
-    const {setDeviceConnected, setWhoIsGoing, webRTC, cells, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
+    const {isDeviceConnected, setIsDeviceConnected, setWhoIsGoing, webRTC, cells, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
     const [offerInput, setOfferInput] = useState('');
     const [answerInput, setAnswerInput] = useState('');
     const [connectionData, setConnectionData] = useState('');
     const navigate = useNavigate();
-    const [isDeviseConnected, setIsDeviseConnected] = useState(null);
 
-    const moveFigure = (whichFigureCanStayI, figureI) => {
+    const moveFigure = async (whichFigureCanStayI, figureI) => {
         const figure = cells[figureI];
         const whichFigureCanStay = cells[whichFigureCanStayI];
 
-        setFigureCoordinates(figure.figure, whichFigureCanStay.figure, cells, setCells, false)
+        await setFigureCoordinates(figure.figure, whichFigureCanStay.figure, cells, setCells, false)
     }
 
     const createRoom = async () => {
@@ -53,17 +52,15 @@ const MakeRoomZone = () => {
     };
 
     if (webRTC.current === null) {
-        webRTC.current = new WebRTC(setIsDeviseConnected, setWhoIsGoing, moveFigure, webRTC, setWhatColorAmI);
+        webRTC.current = new WebRTC(setIsDeviceConnected, setWhoIsGoing, moveFigure, setWhatColorAmI);
     }
 
     useEffect(() => {
-        if (isDeviseConnected === true) {
+        if (isDeviceConnected === true) {
             navigate('/chess');
             setWhoIsGoing('white')
-        } else if (isDeviseConnected === false) {
-            navigate('/');
         }
-    }, [isDeviseConnected, navigate, setDeviceConnected, setWhoIsGoing]);
+    }, [isDeviceConnected, navigate, setWhoIsGoing]);
 
     useEffect(() => console.log(whoIsGoing, whatColorAmI), [whoIsGoing, whatColorAmI])
 

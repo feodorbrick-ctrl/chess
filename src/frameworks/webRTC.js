@@ -1,5 +1,5 @@
 export class WebRTC {
-    constructor(setIsConnected, setWhoIsGoing, setCoordinates, webRTC, setWatColorAmI) {
+    constructor(setIsConnected, setWhoIsGoing, setCoordinates, setWhatColorAmI) {
         this.peer = new RTCPeerConnection({
             iceServers: [
                 {
@@ -15,11 +15,12 @@ export class WebRTC {
         this.setCoordinates = setCoordinates;
         this.setIsConnected = setIsConnected;
         this.setWhoIsGoing = setWhoIsGoing;
-        this.setWhatColorAmI = setWatColorAmI;
+        this.setWhatColorAmI = setWhatColorAmI;
         this.channel = null;
 
         this.peer.ondatachannel = event => {
             this.channel = event.channel;
+            this.setWhatColorAmI('black');
             this.setupChannel();
         };
 
@@ -34,11 +35,6 @@ export class WebRTC {
     }
 
     setupChannel() {
-        this.channel.onopen = () => {
-            this.sendMessage({type: 'start'})
-            console.log('Connected!');
-        };
-
         this.channel.onclose = () => {
             this.setIsConnected(false);
             console.log('Disconnected!');
@@ -50,7 +46,7 @@ export class WebRTC {
             console.log('Received:', message);
 
             if (message.type === 'move') {
-                this.setCoordinates(message.message[0], message.message[1]);
+                this.setCoordinates(message.message[1], message.message[0]);
             }
             if (message.type === 'moved') {
                 this.setWhoIsGoing(currentTurn => currentTurn === 'black' ? 'white' : 'black');
@@ -59,15 +55,21 @@ export class WebRTC {
             if (message.type === 'close') {
                 this.setIsConnected(false);
             }
-
-            if (message.type === 'start') {
-                this.setIsConnected(true);
-                this.setWhatColorAmI('black')
-            }
         };
+
+        const onOpen = () => {
+            this.setIsConnected(true);
+            console.log('Connected!');
+        };
+        if (this.channel.readyState === 'open') {
+            onOpen();
+        } else {
+            this.channel.onopen = onOpen;
+        }
     }
 
     async createRoom() {
+        this.setWhatColorAmI('white');
         this.channel = this.peer.createDataChannel('game');
 
         this.setupChannel();
@@ -105,11 +107,8 @@ export class WebRTC {
     close() {
         this.setIsConnected(false);
         this.sendMessage({type: 'close'});
-        this.channel = null
-        this.peer = new RTCPeerConnection({
-            iceServers: [
-                { urls: 'stun:stun.l.google.com:19302' }
-            ]
-        })
+        this.channel?.close();
+        this.peer.close();
+        this.channel = null;
     }
 }
