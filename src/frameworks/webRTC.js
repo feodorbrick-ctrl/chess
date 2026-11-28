@@ -46,7 +46,7 @@ export class WebRTC {
             console.log('Received:', message);
 
             if (message.type === 'move') {
-                this.setCoordinates(message.message[1], message.message[0]);
+                this.setCoordinates(message.message[0], message.message[1]);
             }
             if (message.type === 'moved') {
                 this.setWhoIsGoing(currentTurn => currentTurn === 'black' ? 'white' : 'black');

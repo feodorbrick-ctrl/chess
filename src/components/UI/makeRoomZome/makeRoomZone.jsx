@@ -3,21 +3,14 @@ import cl from './makeRoomZome.module.css';
 import {WebRTC} from '../../../frameworks/webRTC';
 import {useNavigate} from "react-router-dom";
 import Context from "../../../index";
-import {setFigureCoordinates} from "../../../frameworks/setFigureCoordinates";
+import {moveFigureByIndex} from "../../../frameworks/setFigureCoordinates";
 
 const MakeRoomZone = () => {
-    const {isDeviceConnected, setIsDeviceConnected, setWhoIsGoing, webRTC, cells, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
+    const {isDeviceConnected, setIsDeviceConnected, setWhoIsGoing, webRTC, setCells, setWhatColorAmI, whoIsGoing, whatColorAmI} = useContext(Context);
     const [offerInput, setOfferInput] = useState('');
     const [answerInput, setAnswerInput] = useState('');
     const [connectionData, setConnectionData] = useState('');
     const navigate = useNavigate();
-
-    const moveFigure = async (whichFigureCanStayI, figureI) => {
-        const figure = cells[figureI];
-        const whichFigureCanStay = cells[whichFigureCanStayI];
-
-        await setFigureCoordinates(figure.figure, whichFigureCanStay.figure, cells, setCells, false)
-    }
 
     const createRoom = async () => {
         await webRTC.current.createRoom();
@@ -52,7 +45,12 @@ const MakeRoomZone = () => {
     };
 
     if (webRTC.current === null) {
-        webRTC.current = new WebRTC(setIsDeviceConnected, setWhoIsGoing, moveFigure, setWhatColorAmI);
+        webRTC.current = new WebRTC(
+            setIsDeviceConnected,
+            setWhoIsGoing,
+            (toIndex, fromIndex) => moveFigureByIndex(setCells, fromIndex, toIndex),
+            setWhatColorAmI,
+        );
     }
 
     useEffect(() => {

@@ -1,8 +1,26 @@
 import {Cell} from "../components/data/cell";
 
+export function moveFigureByIndex(setCells, fromIndex, toIndex, promotion) {
+    setCells(currentCells => {
+        const source = currentCells[fromIndex];
+        const target = currentCells[toIndex];
+        if (!source || !target || source.figure.name === 'Figure') return currentCells;
+
+        const nextCells = [...currentCells];
+        nextCells[fromIndex] = new Cell(source.x, source.y);
+        nextCells[toIndex] = new Cell(target.x, target.y);
+        nextCells[toIndex].setFigure(promotion ?? source.figure);
+        return nextCells;
+    });
+}
+
 export async function setFigureCoordinates(figure, whichFigureCanStay, cells, setCells, isGameOnline, webRTC) {
-    const index = 8 * (figure.y - 1) + (figure.x - 1);
-    const whichFigureCanStayIndex = 8 * (whichFigureCanStay.y - 1) + (whichFigureCanStay.x - 1);
+    const calcCellIndex = (figureObj) => {
+        return 8 * (figureObj.y - 1) + (figureObj.x - 1);
+    }
+
+    const index = calcCellIndex(figure)
+    const whichFigureCanStayIndex = calcCellIndex(whichFigureCanStay)
 
     if (index < 0 || index >= cells.length) {
 
@@ -10,21 +28,11 @@ export async function setFigureCoordinates(figure, whichFigureCanStay, cells, se
         return;
     }
     if (isGameOnline) {
-        const message = [whichFigureCanStayIndex, index]
+        const message = [index, whichFigureCanStayIndex]
         webRTC.sendMessage({type: 'move', message: message})
         webRTC.sendMessage({type: 'moved'})
     }
 
-    setCells(currentCells => currentCells.map((cell, i) => {
-        if (i === index) {
-            const newCell = new Cell(cell.x, cell.y);
-            newCell.setFigure(whichFigureCanStay);
-            return newCell;
-        }
-        if (i === whichFigureCanStayIndex) {
-            return new Cell(cell.x, cell.y);
-        }
-
-        return cell;
-    }));
+    const promotion = index === whichFigureCanStayIndex ? whichFigureCanStay : undefined;
+    moveFigureByIndex(setCells, whichFigureCanStayIndex, index, promotion);
 }
